@@ -1,25 +1,32 @@
 package com.skilldistillery.blackjack.entities;
 
-import java.util.List;
-
 public class BlackjackHand extends Hand {
+	private boolean isTrue = true;
 
-	
 	public BlackjackHand() {
 	
 	}
 	
-	public int getHandValue(List<Integer> c) {
-		int hand = 0;
-		for(int val = 0; val < c.size(); val++) {
-			hand += c.get(val);		
+	public int getHandValue() {
+		int sum = 0;
+		for(Card card : hand) {
+			sum += card.getRank().getValue();	
 		}
-		return hand;
+		return sum;
 	}
 	
+	
 	public boolean isBlackJack(int bj) {
-		boolean wwcd = bj > 21;	
-		return wwcd;
+		int win = bj;
+		if (win == 21) {
+			return isTrue;
+		}
+		return false;
+	}
+	
+	public boolean is21(int nextC) {
+		boolean nextCard = nextC == 21;
+		return nextCard;
 	}
 	
 	public boolean isBust(int bust) {
