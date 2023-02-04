@@ -12,4 +12,9 @@ public enum Suit {
 		this.name = s;
 		
 	}
+	
+	@Override
+	public String toString() {
+		return "" + name;
+	}
 }

@@ -12,7 +12,7 @@ public class Card {
 	}
 
 	public Rank getRank() {
-		return rank;
+		return this.rank;
 	}
 
 	public void setRank(Rank rank) {
@@ -29,7 +29,7 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card: " + getRank()  + " of " + getSuit();
+		return getRank()  + " of " + getSuit();
 	}
 
 	@Override

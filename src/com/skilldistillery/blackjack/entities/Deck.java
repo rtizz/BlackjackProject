@@ -7,12 +7,18 @@ import java.util.List;
 public class Deck {
 	
 	private List<Card> cards;
+	private List<Card> discard;
 	
 	public Deck() {
 	cards = makeDeck();
 	}
 
 	
+	public List<Card> getCards() {
+		return cards;
+	}
+
+
 	public List<Card> makeDeck() {
 	List<Card> cardDeck = new ArrayList<>(52);
 	for (Suit s : Suit.values()) {
@@ -27,12 +33,17 @@ public class Deck {
 		return cards.size();
 	}
 	public Card dealCard() {
-		return cards.remove(0);
+		discard = new ArrayList<>();
+		Card latest = cards.get(0);
+		discard.add(cards.remove(0));
+		return latest;
 	}
 	
 	public void shuffle() {
 		Collections.shuffle(cards);
 	}
+	
+
 	
 }
 
