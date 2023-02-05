@@ -6,7 +6,7 @@ public class BlackjackHand extends Hand {
 	public BlackjackHand() {
 	
 	}
-	
+//based on who calls (dealer or player) this method will spit out the respective hands value	
 	public int getHandValue() {
 		int sum = 0;
 		for(Card card : hand) {
@@ -15,7 +15,7 @@ public class BlackjackHand extends Hand {
 		return sum;
 	}
 	
-	
+//boolean to assess if cards are blackjack(only on initial deal)	
 	public boolean isBlackJack(int bj) {
 		int win = bj;
 		if (win == 21) {
@@ -24,21 +24,24 @@ public class BlackjackHand extends Hand {
 		return false;
 	}
 	
+//boolean to assess if cards are 21(only after deal)	
 	public boolean is21(int nextC) {
 		boolean nextCard = nextC == 21;
 		return nextCard;
 	}
 	
+//boolean to assess if cards are over 21	
 	public boolean isBust(int bust) {
 		boolean buster = bust > 21;
 		return buster;
 	}
 	
-	public boolean isHard() {//optional- stretch
+//NOT USED - STRETCH GOAL
+	public boolean isHard() {//optional
 		return true;
 	}
-	
-	public boolean isSoft() {//optional - stretch
+	//NOT USED - STRETCH GOAL	
+	public boolean isSoft() {//optional 
 		return true;
 	}
 }

@@ -1,10 +1,7 @@
 package com.skilldistillery.blackjack.entities;
 
-import java.util.Scanner;
-
 public class Player extends Person {
 	private BlackjackHand bjHand = new BlackjackHand();
-	private boolean isStay = false;
 	public Player() {
 		
 	}
@@ -22,28 +19,19 @@ public class Player extends Person {
 		System.out.println("Stay");
 	}
 	
-
-	public boolean isStay() {
-		return isStay;
-	}
-
-	public void setStay(boolean isStay) {
-		this.isStay = isStay;
-	}
-
-	public boolean assessDealtCards(int val) {
+//called only after initialDeal() to assess if given Blackjack on first hand to end the game or continue on. 
+	public boolean assessDealtCards(int val) { 
 		int pVal = val;
 	 if (bjHand.isBlackJack(pVal)) {
 		System.out.println("BLACKJACK!!! Winner Winner Chicken Dinner");
 		return false;
-//	 } else if ((bjHand.isBust(pVal))){
-//		 System.out.println("BUST! House wins. Hate to see it!");
 	 }else {
 		 System.out.println("You're currently sitting at " + pVal);	
 	 }
 	 return true;
 	}
 	
+// called only after user "hits" to reassess and provide logic to end game or keep going.	
 	public boolean assessPostHit(int val) {
 		int pVal = val;
 	 if (bjHand.is21(pVal)) {
@@ -58,7 +46,7 @@ public class Player extends Person {
 	 return true;
 	}
 
-	
+//called in main to get value of hand or add to hand
 	public BlackjackHand getBjHand() {
 		return bjHand;
 	}
@@ -67,7 +55,6 @@ public class Player extends Person {
 	public void setBjHand(BlackjackHand bjHand) {
 		this.bjHand = bjHand;
 	}
-
 
 
 	@Override

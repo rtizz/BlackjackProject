@@ -1,6 +1,7 @@
 package com.skilldistillery.blackjack.app;
 
 import java.util.Scanner;
+
 import com.skilldistillery.blackjack.entities.Card;
 import com.skilldistillery.blackjack.entities.Dealer;
 import com.skilldistillery.blackjack.entities.Player;
@@ -16,52 +17,82 @@ public class BlackjackApp { // game Logic
 		bj.run();
 	}
 
+//runs following methods
 	public void run() {
 		welcome();
-		dealer.shuffleDeck();
-		gameOn();
-
+		sleep(2000);
+		System.out.println("Dealing!");
+		initialDeal();
+		sc.close();
 	}
-
+//Welcome diplay and adds name to player
 	public void welcome() {
 		System.out.println("Welcome to the table! Whats your name?");
 		String name = sc.next();
-		player = new Player(name);
-		System.out.println("Nice to meet you " + player.getName() + "!! Are you ready to play.....");
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		System.out.println("BlackJack!!!");
 		sc.nextLine();
+		player = new Player(name);//add name to player
+		System.out.println("Nice to meet you " + player.getName() + "!!");
+		verifyDeck();
+		System.out.println("_______________________________________________________");  
+		sleep(1500);
+		System.out.println("Alright are you ready to play....");
+		sleep(1500);
+		System.out.println("*********************");
+		System.out.println("*********************");
+		System.out.println("***  BLACKJACK!!! ***");
+		System.out.println("*********************");
+		System.out.println("*********************");
+		
 
 	}
 
-	public void gameOn() {
+//allows user to see the deck or continue on to the game
+	public void verifyDeck() {
+		System.out.println("Would you like to verify the deck is shuffled? Y/N");
+		String answer = sc.next();
+		sc.nextLine();
+		//either way the deck is shuffled, the player can just choose not to see it
+		if(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes")) {
+		System.out.println("Always trust but verify!");
+		dealer.shuffleDeck();
+		dealer.displayDeck();
+		} else if (answer.equalsIgnoreCase("n") || answer.equalsIgnoreCase("no")) {
+			System.out.println("No worries! You can trust me");
+			dealer.shuffleDeck();
+		}
+	}
+
+//Displays each players card on first deal
+	public void initialDeal() {
 
 		Card play1 = dealer.deal();
+		sleep(1000);
 		System.out.println(player.getName() + "'s 1st Card: " + play1);
 		player.getBjHand().addCard(play1);
 		Card deal1 = dealer.deal();
-		System.out.println("Dealer's first card face down");
+		sleep(1000);
+		System.out.println("Dealer's first card face down"); //does not display dealers first card
 		dealer.getBjHand().addCard(deal1);
 		Card play2 = dealer.deal();
+		sleep(1000);
 		System.out.println(player.getName() + "'s 2nd Card: " + play2);
 		player.getBjHand().addCard(play2);
 		Card deal2 = dealer.deal();
+		sleep(1000);
 		System.out.println("Dealer's top card: " + deal2);
 		dealer.getBjHand().addCard(deal2);
-		
-		int playerVal = player.getBjHand().getHandValue();
-		isTrue = player.assessDealtCards(playerVal);
+		sleep(1000);
+		System.out.println("_______________________________________________________");
+		int playerVal = player.getBjHand().getHandValue(); 
+		isTrue = player.assessDealtCards(playerVal); //determines if game is over or continue to hitOrStay.
 			while(isTrue) {
-				hitOrStay();
+				hitOrStay(); //controlled by while loop which is killed if false is returned based on certain outcomes.
 			}
 	}
 
+// prompts the user to hit, stay, or get advice from dealer. based on outcome of initial deal. 
 	public boolean hitOrStay() {
-			System.out.println("Select an option:\n1.Hit\n2.Stay");
+			System.out.println("Select an option:\n1.Hit\n2.Stay\n3.Dealers Opinion");
 			int selection = sc.nextInt();
 			sc.nextLine();
 
@@ -76,9 +107,12 @@ public class BlackjackApp { // game Logic
 				break;
 			case 2:
 				player.stay();
-				dealer.evaluateWinner(player);
+				dealer.evaluateWinner(player); //sends player to dealer to be used on final assessment. 
 				dealer.showCards();
 				isTrue = false;
+				break;
+			case 3:
+				dealer.opinion(player.getBjHand().getHandValue());
 				break;
 			default:
 				System.out.println("Not an option. Try again");
@@ -87,23 +121,17 @@ public class BlackjackApp { // game Logic
 			
 			return isTrue;
 	}
-//	public void determineWinner() {
-//	int playerHand = player.getBjHand().getHandValue();
-//	int houseHand = dealer.getBjHand().getHandValue();
-//	dealer.getPlayerHand(player);
-//	System.out.println("Dealer: " + houseHand + "|" + player.getName() + playerHand);
-//	if (playerHand > houseHand) {
-//		dealer.getWinningHand(player.getName() + " wins!");
-//	} else if (houseHand > playerHand) {
-//		dealer.getWinningHand("Dealer wins!");
-//	} else {
-//		dealer.getWinningHand("Push!...Live to fight another day");
-//	}
-//}
 
-	public Player getPlayer() {
-		return player;
+//sleep method which takes in milliseconds to pause the println. Helps clean up the console some. 
+	public void sleep(int n) {
+		try {
+			Thread.sleep(n);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
+
+
 
 	
 }
