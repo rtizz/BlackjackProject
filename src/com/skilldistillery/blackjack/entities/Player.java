@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class Player extends Person {
 	private BlackjackHand bjHand = new BlackjackHand();
+	private boolean isStay = false;
+	public Player() {
+		
+	}
+	
 	public Player(String name) {
 		super(name);
 	}
@@ -16,8 +21,17 @@ public class Player extends Person {
 	public void stay() {
 		System.out.println("Stay");
 	}
+	
 
-	public boolean accessDealtCards(int val) {
+	public boolean isStay() {
+		return isStay;
+	}
+
+	public void setStay(boolean isStay) {
+		this.isStay = isStay;
+	}
+
+	public boolean assessDealtCards(int val) {
 		int pVal = val;
 	 if (bjHand.isBlackJack(pVal)) {
 		System.out.println("BLACKJACK!!! Winner Winner Chicken Dinner");
@@ -25,7 +39,7 @@ public class Player extends Person {
 //	 } else if ((bjHand.isBust(pVal))){
 //		 System.out.println("BUST! House wins. Hate to see it!");
 	 }else {
-		 System.out.println("You're currently sitting at " + pVal);	 
+		 System.out.println("You're currently sitting at " + pVal);	
 	 }
 	 return true;
 	}
@@ -36,7 +50,7 @@ public class Player extends Person {
 		System.out.println("Twenty One! Player Wins!");
 		return false;
 	 } else if ((bjHand.isBust(pVal))){
-		 System.out.println("BUST! House wins. Hate to see it!");
+		 System.out.println(pVal + "\nBUST! House wins. Hate to see it!");
 		 return false;
 	 }else {
 		 System.out.println("You're currently sitting at " + pVal);	 

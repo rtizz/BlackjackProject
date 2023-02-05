@@ -8,9 +8,9 @@ import com.skilldistillery.blackjack.entities.Player;
 public class BlackjackApp { // game Logic
 	private Player player;
 	private Scanner sc = new Scanner(System.in);
-	private Dealer theHouse = new Dealer("Dealer");
+	private Dealer dealer = new Dealer("Dealer");
 	private boolean isTrue = true;
-
+	
 	public static void main(String[] args) {
 		BlackjackApp bj = new BlackjackApp();
 		bj.run();
@@ -18,11 +18,8 @@ public class BlackjackApp { // game Logic
 
 	public void run() {
 		welcome();
-		theHouse.shuffleDeck();
-		initialDeal();
-//		while (isTrue) {
-//			isTrue = hitOrStay();
-//		}
+		dealer.shuffleDeck();
+		gameOn();
 
 	}
 
@@ -41,25 +38,23 @@ public class BlackjackApp { // game Logic
 
 	}
 
-	public void initialDeal() {
+	public void gameOn() {
 
-		// individually dealing one at a time and sending them to respective array for
-		// each
-		Card play1 = theHouse.deal();
+		Card play1 = dealer.deal();
 		System.out.println(player.getName() + "'s 1st Card: " + play1);
 		player.getBjHand().addCard(play1);
-		Card deal1 = theHouse.deal();
+		Card deal1 = dealer.deal();
 		System.out.println("Dealer's first card face down");
-		theHouse.getBjHand().addCard(deal1);
-		Card play2 = theHouse.deal();
+		dealer.getBjHand().addCard(deal1);
+		Card play2 = dealer.deal();
 		System.out.println(player.getName() + "'s 2nd Card: " + play2);
 		player.getBjHand().addCard(play2);
-		Card deal2 = theHouse.deal();
+		Card deal2 = dealer.deal();
 		System.out.println("Dealer's top card: " + deal2);
-		theHouse.getBjHand().addCard(deal2);
+		dealer.getBjHand().addCard(deal2);
 		
 		int playerVal = player.getBjHand().getHandValue();
-		isTrue = player.accessDealtCards(playerVal);
+		isTrue = player.assessDealtCards(playerVal);
 			while(isTrue) {
 				hitOrStay();
 			}
@@ -74,14 +69,15 @@ public class BlackjackApp { // game Logic
 
 			case 1:
 				player.hit();
-				Card newCard = theHouse.deal();
+				Card newCard = dealer.deal();
 				System.out.println(newCard);
 				player.getBjHand().addCard(newCard);
 				isTrue = player.assessPostHit(player.getBjHand().getHandValue());
 				break;
 			case 2:
 				player.stay();
-				theHouse.showCards();
+				dealer.evaluateWinner(player);
+				dealer.showCards();
 				isTrue = false;
 				break;
 			default:
@@ -91,17 +87,23 @@ public class BlackjackApp { // game Logic
 			
 			return isTrue;
 	}
+//	public void determineWinner() {
+//	int playerHand = player.getBjHand().getHandValue();
+//	int houseHand = dealer.getBjHand().getHandValue();
+//	dealer.getPlayerHand(player);
+//	System.out.println("Dealer: " + houseHand + "|" + player.getName() + playerHand);
+//	if (playerHand > houseHand) {
+//		dealer.getWinningHand(player.getName() + " wins!");
+//	} else if (houseHand > playerHand) {
+//		dealer.getWinningHand("Dealer wins!");
+//	} else {
+//		dealer.getWinningHand("Push!...Live to fight another day");
+//	}
+//}
 
-	public void winnersLosers() {
-		int playerHand = player.getBjHand().getHandValue();
-		int houseHand = theHouse.getBjHand().getHandValue();
-		if (playerHand > houseHand) {
-			System.out.println(player.getName() + " wins!");
-		} else if (houseHand > playerHand) {
-			System.out.println(theHouse.getName() + " wins!");
-		} else if (playerHand == houseHand) {
-			System.out.println("Push");
-		}
+	public Player getPlayer() {
+		return player;
 	}
 
+	
 }

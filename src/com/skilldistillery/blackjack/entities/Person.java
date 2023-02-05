@@ -3,6 +3,10 @@ package com.skilldistillery.blackjack.entities;
 public abstract class Person {
 	protected String name;
 	
+	public Person() {
+		
+	}
+	
 	public Person(String name) {
 		this.name = name;
 	}

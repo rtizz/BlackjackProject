@@ -1,12 +1,16 @@
 package com.skilldistillery.blackjack.entities;
 
+import com.skilldistillery.blackjack.app.BlackjackApp;
+
 public class Dealer extends Person {
 
 	private Deck deck = new Deck();
 	private BlackjackHand bjHand = new BlackjackHand();
+	private int playerHand = 0;
 
 	public Dealer(String name) {
 		super(name);
+		
 	}
 
 	public Card deal() {
@@ -25,9 +29,16 @@ public class Dealer extends Person {
 			if (bjHand.isBlackJack(dealerCards)) {
 				System.out.println("Oooh tough luck, house take it");
 			}
-//			if (dealerCards > 17) {
-//				bjA.winnersLosers();
-//			}
+		} 
+		if (dealerCards >=17 && dealerCards < 21) {
+			System.out.println("Dealer: " + dealerCards + "|" + "Player " + this.playerHand);
+			if (this.playerHand > dealerCards) {
+				System.out.println(" Player wins!");
+			} else if (dealerCards > this.playerHand) {
+				System.out.println("Dealer wins!");
+			} else {
+				System.out.println("Push!...Live to fight another day");
+			}
 		}
 	}
 
@@ -54,7 +65,7 @@ public class Dealer extends Person {
 			e.printStackTrace();
 		}
 		dealerCards = getBjHand().getHandValue();
-		System.out.println(dealerCards);
+		System.out.println("\nDealers Hand: " + dealerCards);
 		assessCards(dealerCards);
 	}
 
@@ -62,9 +73,10 @@ public class Dealer extends Person {
 		Card newCard = deal();
 		getBjHand().addCard(newCard);
 		int dHandVal = getBjHand().getHandValue();
-		System.out.println(newCard + "| Dealers Hand: " + dHandVal);
+		System.out.println(newCard + "\nDealers Hand: " + dHandVal);
 		return dHandVal;
 	}
+	
 
 	public void shuffleDeck() {
 		deck.shuffle();
@@ -77,4 +89,13 @@ public class Dealer extends Person {
 	public BlackjackHand getBjHand() {
 		return bjHand;
 	}
+	
+	public void evaluateWinner(Player p) {
+		int playerHand = p.getBjHand().getHandValue();
+		this.playerHand = playerHand;
+		int houseHand = getBjHand().getHandValue();
+
+	}
+
+	
 }
