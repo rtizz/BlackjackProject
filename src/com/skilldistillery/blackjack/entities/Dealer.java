@@ -29,15 +29,16 @@ public class Dealer extends Person {
 			} else if (bjHand.isBust(dealerCards)) {
 				System.out.println("Dealer Busts! Player wins!!");
 			} 
-			if (bjHand.isBlackJack(dealerCards)) {
-				System.out.println("Oooh tough luck, house take it");
-			}
-		} 
+		}
+		if (bjHand.isBlackJack(dealerCards)) {
+			System.out.println("BlackJack! Tough luck, house take it, " + player.getName() + " lost");
+		}
+
 //additional logic if both dealer and player are in the sweetspot and values need to be assessed. This method calls the value of the players hand(int)
 		if (dealerCards >=17 && dealerCards < 21) {
-			System.out.println("Dealer: " + dealerCards + "|" + player.getName() + playerCards);
+			System.out.println("Dealer: " + dealerCards + " | " + player.getName() + ": " + playerCards);
 			if (playerCards > dealerCards) {
-				System.out.println(player.getName() + " wins!");
+				System.out.println(player.getName() + " Wins!");
 			} else if (dealerCards > playerCards) {
 				System.out.println("Dealer wins!");
 			} else {
