@@ -67,6 +67,7 @@ public class Dealer extends Person {
 		sleep(1200);
 		dealerCards = getBjHand().getHandValue();
 		System.out.println("\nDealers Hand: " + dealerCards);
+		sleep(1200);
 		assessCards(dealerCards);
 	}
 //continually adds new cards to dealers hand and assesses value to keep dealing and print out respective responses
