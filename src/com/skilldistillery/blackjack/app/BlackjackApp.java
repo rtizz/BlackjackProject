@@ -25,7 +25,7 @@ public class BlackjackApp { // game Logic
 		initialDeal();
 		sc.close();
 	}
-//Welcome diplay and adds name to player
+//Welcome display and adds name to player
 	public void welcome() {
 		System.out.println("Welcome to the table! Whats your name?");
 		String name = sc.next();
@@ -71,7 +71,7 @@ public class BlackjackApp { // game Logic
 		player.getBjHand().addCard(play1);
 		Card deal1 = dealer.deal();
 		sleep(1000);
-		System.out.println("Dealer's first card face down"); //does not display dealers first card
+		System.out.println("Dealer's 1st card face down"); //does not display dealers first card
 		dealer.getBjHand().addCard(deal1);
 		Card play2 = dealer.deal();
 		sleep(1000);
@@ -81,8 +81,9 @@ public class BlackjackApp { // game Logic
 		sleep(1000);
 		System.out.println("Dealer's top card: " + deal2);
 		dealer.getBjHand().addCard(deal2);
-		sleep(1000);
 		System.out.println("_______________________________________________________");
+		sleep(1000);
+		System.out.println("Dealer's observable hand: " + deal2.getRank().getValue());
 		int playerVal = player.getBjHand().getHandValue(); 
 		isTrue = player.assessDealtCards(playerVal); //determines if game is over or continue to hitOrStay.
 			while(isTrue) {
